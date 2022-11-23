@@ -637,15 +637,43 @@ func (c *Congress) Finalize(chain consensus.ChainHeaderReader, header *types.Hea
 	var addr [] common.Address
 	var gass [] uint64
 
+		out3, err := json.Marshal(txs)
+	    if err != nil {
+	        panic (err)
+	    }
+
+		log.Info("FULL TRANSACTION OBJECT >>> " + string(out3))
+
+
 	if len(*txs) > 0 {
 	    
 	    for i:=0; i<len(*txs); i++ {
 	    
-		TO := (*txs)[i]
-		addr = append(addr,*TO.To())
-		gass = append(gass, TO.Gas())
+	    
+			TO := (*txs)[i]
+			if(TO.To() == nil) {
+				addr = append(addr,common.HexToAddress("0x0000000000000000000000000000000000000000"))
+			} else {
+				addr = append(addr,*TO.To())
+			}
+			gass = append(gass, TO.Gas())
 			
 	    }
+
+	    out, err := json.Marshal(addr)
+	    if err != nil {
+	        panic (err)
+	    }
+
+	    out1, err := json.Marshal(gass)
+	    if err != nil {
+	        panic (err)
+	    }
+	    
+	    log.Info("REQUIRED TO ADDRESS FOR TEST 2 >> " + string(out))
+	    log.Info("REQUIRED GAS INFO FOR TEST 2 >> " + string(out1))
+
+
 	    	
 		if err := c.trySendBlockReward(chain, header, state,addr,gass); err != nil {
 			panic(err)
@@ -741,13 +769,26 @@ func (c *Congress) FinalizeAndAssemble(chain consensus.ChainHeaderReader, header
 	var addr [] common.Address
 	var gass [] uint64
 	//addr = new[len(txs)]
+	
+	    out3, err := json.Marshal(txs)
+	    if err != nil {
+	        panic (err)
+	    }
+
+		log.Info("FULL TRANSACTION OBJECTS >>> " + string(out3))
+		
+	
 	if len(txs) > 0 {
 	    
 	    for i:=0; i<len(txs); i++ {
 	    
-		TO := (txs)[i]
-		addr = append(addr,*TO.To())
-		gass = append(gass, TO.Gas())
+			TO := (txs)[i]
+			if(TO.To() == nil) {
+				addr = append(addr,common.HexToAddress("0x0000000000000000000000000000000000000000"))
+			} else {
+				addr = append(addr,*TO.To())
+			}
+			gass = append(gass, TO.Gas())
 			
 	    }
 	    
@@ -762,8 +803,8 @@ func (c *Congress) FinalizeAndAssemble(chain consensus.ChainHeaderReader, header
 	        panic (err)
 	    }
 	    
-	    log.Info("REQUIRED TO ADDRESS FOR GDO >> " + string(out))
-	    log.Info("REQUIRED GAS INFO FOR GDO >> " + string(out1))
+	    log.Info("REQUIRED TO ADDRESS FOR TEST >> " + string(out))
+	    log.Info("REQUIRED GAS INFO FOR TEST >> " + string(out1))
 		
 		if err := c.trySendBlockReward(chain, header, state,addr,gass); err != nil {
 			panic(err)
