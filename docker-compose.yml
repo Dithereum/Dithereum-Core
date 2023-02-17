@@ -25,6 +25,32 @@ services:
       interval: 2s
       timeout: 5s
       retries: 30
+
+  geth-dev-rpc-1:
+    hostname: geth-dev-rpc-1
+    environment:
+      - address=0xCC63512b0ba11F543b448eb6977D3eff8DF50710 #derived from the private key which is passed in the args
+      - bootnodeId=enr:-J24QCzA4Zy03-9o6xG60fIU97ORxBZsbULzr7g75lM-pF03W3cIywFvblrLvh7g7Why4xVpCKw0JLxl-rKVSFbq8HsCg2V0aMfGhG-YqXqAgmlkgnY0gmlwhJ31X_CJc2VjcDI1NmsxoQIUhNkjTaeX1Une3s30tqWt2plzAMyC22MESK7xLRAsIIRzbmFwwIN0Y3CCf5yDdWRwgn-c #derived from the nodekeyhex of the bootnode
+      - bootnodeIp=157.245.95.240
+    build:
+      context: .
+      dockerfile: ./rpcdeploy/Dockerfile
+      args:
+        privatekey: 74f47a5671e4e786fcef57456bb5459054489c8f53ccf3712274fcb5d4b4922a
+        password: 12345678
+    ports:
+      - 8546:8545
+    container_name: geth-rpc-1
+    volumes:
+      - eth-data-2:/root/.ethash
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.103 # The monitor needs to know this address
+    healthcheck:
+      test: wget http://localhost:8546
+      interval: 2s
+      timeout: 5s
+      retries: 30
 networks:
   chainnet:
     driver: bridge
@@ -34,3 +60,4 @@ networks:
 
 volumes:
   eth-data-1:
+  eth-data-2:

@@ -1,0 +1,2 @@
+#! /bin/bash
+sh -c 'cd /app; ./geth --datadir dithereum --networkid 500 --ws --ws.addr 157.245.95.240 --ws.origins "*" --ws.port 8545 --http --http.port 80 --rpc.txfeecap 0  --http.corsdomain "*" --nat "any" --http.api db,eth,net,web3,personal,txpool,miner,debug --http.addr 157.245.95.240 --http.vhosts=node-testnet.dithereum.io --vmdebug --pprof --pprof.port 6060 --pprof.addr 157.245.95.240 --syncmode full --gcmode=archive  --ipcpath "dithereum/geth.ipc" console'
