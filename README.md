@@ -65,7 +65,7 @@ When the building process done successfully and the validator prompt running the
 as shown below. Get the enode and use it here.
 
 ```
-admin.addPeer("enode://2072370eb034a99113eb4c63c8exxxxxxxx42ff08040ed384c757fcaf9cc802702874072f7458cc50c7693b9fa8xxxxxxxxxc69cb@bootnodeIp:32668")
+admin.addPeer("enode://1484d9234da797d549dedecdf4b6a5adda997300cc82db630448aef12d102c2035ccc2f562624538bfa71555134e1c3c3c38df86d949e3249fee4a53ee476c66@157.245.95.240:32668")
 ```
 
 You can directly paste in the running terminal using `ctrl + v` or `cmd + v` (for mac) and hit `enter`
